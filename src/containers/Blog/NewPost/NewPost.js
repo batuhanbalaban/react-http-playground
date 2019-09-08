@@ -28,7 +28,15 @@ class NewPost extends Component {
     render () {
         let redirect = null;
         if(this.state.submitted){
-            redirect = <Redirect to="/posts"/>
+            
+            //redirect without page reload & clear history, back button wont work
+            this.props.history.replace('/posts');
+
+            //redirect without page reload 
+            //this.props.history.push('/posts');
+            
+            //REDIRECT RELOADS THE PAGE
+            //redirect = <Redirect to="/posts"/>
         }
         return (
             <div className="NewPost">
