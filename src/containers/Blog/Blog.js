@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import './Blog.css';
 import Posts from './Posts/Posts';
 import {Route, NavLink, Switch, Redirect}from 'react-router-dom';
-import NewPost from './NewPost/NewPost';
 import FullPost from './FullPost/FullPost';
+
+import asyncComponent from '../../hoc/asyncComponent';
+//import NewPost from './NewPost/NewPost';
+const AsyncNewPost = asyncComponent(()=>{
+    return import('./NewPost/NewPost');
+})
 
 class Blog extends Component {
     render () {
@@ -33,9 +38,10 @@ class Blog extends Component {
                 <Switch>
                     <Route path="/posts/:id" exact component={FullPost}/>
                     <Route path="/posts" exact component={Posts}/>
-                    <Route path="/new-post" exact component={NewPost}/>
+                    <Route path="/new-post" exact component={AsyncNewPost}/>
+                    <Route path="/" exact component={Posts}/>
                     {/* <Route path="/" exact component={Posts}/> */}
-                    {/* <Redirect from="/" to="/posts"  /> */}
+                    {/* <Redirect from="/" exact to="/posts"  /> */}
                     <Route render={()=><h1>Page not found!</h1>}/>
                     
                 </Switch>
